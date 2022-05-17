@@ -1,0 +1,76 @@
+//merge two sorted arrays
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int nextgap(int gap){
+    if(gap<=1){
+        return 0;
+    }
+    else{
+        return (gap/2 + gap%2);
+    }
+}
+
+void merge2arr(int a1[],int a2[],int n,int m){
+    int i,j,gap = n+m;
+
+    for(gap=nextgap(gap);gap>0;gap--){
+        for(i=0;i+gap<n;i++)
+            if(a1[i]>a1[i+gap]) swap(a1[i],a1[i+gap]);
+
+        for(j = gap>n? gap - n : 0 ;i<n&&j<m;i++,j++){
+            if(a1[i]>a2[j]) swap(a1[i],a2[j]);
+        }
+
+        if(j<m){
+            for(int j=0;j+gap<m;j++){
+                if(a2[j]>a2[j+gap]) swap(a2[j],a2[j+gap]);
+            }
+        }
+    }
+}
+
+int main(){
+    int n=5,m=6;
+    int a1[n] = {-5, 3, 6, 12, 15};
+    int a2[m] = {-12, -10, -6, -3, 4, 10};
+    merge2arr(a1,a2,n,m);
+
+    for(int i=0;i<n;i++){
+        cout<<a1[i]<<" ";
+    }
+    cout<<endl;
+    for(int i=0;i<m;i++){
+        cout<<a2[i]<<" ";
+    }
+    cout<<endl;
+
+    cout<<"Median is: ";
+    if((n+m)%2 != 0){
+        int x = (n+m)/2;
+        if(x<n){
+            cout<<a1[x];
+        }else{
+            cout<<a2[m-x-1];
+        }
+    }else{
+        int x = (n+m)/2;
+        int y = (n+m)/2-1;
+        int a,b;
+        if(x<a){
+            a = a1[x];
+        }else{
+            a = a1[m-x-1];
+        }
+
+        if(y<b){
+            b = a2[y];
+        }else{
+            b = a2[m-y-1];
+        }
+        cout<<(a+b)/2;
+
+    }
+    return 0;
+}
