@@ -1,23 +1,48 @@
-public:
-	int nextGap(int gap) {
-	    if (gap <= 1) return 0;
-	    return (gap / 2) + (gap % 2);
-	}
-public:
-	void merge(int arr1[], int arr2[], int n, int m) {
-	    int i, j, gap = n + m;
-	    for (gap = nextGap(gap); gap > 0; gap = nextGap(gap)) {
-	        for (i = 0; i + gap < n; i++)
-	            if (arr1[i] > arr1[i + gap]) swap(arr1[i], arr1[i + gap]);
+//merge two sorted arrays
 
-	        for (j = gap > n ? gap - n : 0; i < n && j < m; i++, j++)
-	            if (arr1[i] > arr2[j]) swap(arr1[i], arr2[j]);
+#include<bits/stdc++.h>
+using namespace std;
 
-	        if (j < m) {
+int nextgap(int gap){
+    if(gap<=1){
+        return 0;
+    }
+    else{
+        return (gap/2 + gap%2);
+    }
+}
 
-	            for (j = 0; j + gap < m; j++)
-	                if (arr2[j] > arr2[j + gap]) swap(arr2[j], arr2[j + gap]);
-	        }
-	    }
-	}
-};
+void merge2arr(int a1[],int a2[],int n,int m){
+    int i,j,gap = n+m;
+
+    for(gap=nextgap(gap);gap>0;gap--){
+        for(i=0;i+gap<n;i++)
+            if(a1[i]>a1[i+gap]) swap(a1[i],a1[i+gap]);
+
+        for(j = gap>n? gap - n : 0 ;i<n&&j<m;i++,j++){
+            if(a1[i]>a2[j]) swap(a1[i],a2[j]);
+        }
+
+        if(j<m){
+            for(int j=0;j+gap<m;j++){
+                if(a2[j]>a2[j+gap]) swap(a2[j],a2[j+gap]);
+            }
+        }
+    }
+}
+
+int main(){
+    int n=5,m=6;
+    int a1[n] = {-5, 3, 6, 12, 15};
+    int a2[m] = {-12, -10, -6, -3, 4, 10};
+    merge2arr(a1,a2,n,m);
+
+    for(int i=0;i<n;i++){
+        cout<<a1[i]<<" ";
+    }
+    cout<<endl;
+    for(int i=0;i<m;i++){
+        cout<<a2[i]<<" ";
+    }
+    return 0;
+}
