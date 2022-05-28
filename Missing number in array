@@ -1,0 +1,15 @@
+class Solution{
+  public:
+    int MissingNumber(vector<int>& array, int n) {
+        // Your code goes here
+        
+        int sum=array[0];
+        for(int i=1;i<array.size();i++){
+            sum+=array[i];
+        }
+        
+        int m = (n*(n+1))/2;
+        
+        return m - sum;
+    }
+};
