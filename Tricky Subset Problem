@@ -1,0 +1,25 @@
+class Solution{
+public:
+    int isPossible(long long S, long long N, long long X, long long A[])
+    {
+        vector<long long> cash;
+        bool flag = true;
+        long long c, prevsum, p;
+        c = S; prevsum = S;
+        cash.push_back(S);
+        for(long long i = 0;i < N;i++){
+            c = prevsum + A[i];
+            if(c > X)
+                flag=false;
+            if(flag)
+                cash.push_back(c);
+            prevsum = c + prevsum;
+        }
+        for(int i=cash.size()-1;i>=0;i--){
+            if(cash[i]>X) continue;
+            X-=cash[i];
+            if(X==0) return true;
+        }
+        return false;
+    }
+};
