@@ -1,0 +1,13 @@
+ char firstRep (string s)
+    {
+        //code here.
+        map<char,int>mp;
+        for(int i=0;i<s.length();i++){
+            if(mp.find(s[i])==mp.end()) mp[s[i]]=1;
+            else mp[s[i]]++;
+        }
+        for(int i=0;i<s.length();i++){
+            if(mp[s[i]]>1) return s[i];
+        }
+        return '#';
+    }
